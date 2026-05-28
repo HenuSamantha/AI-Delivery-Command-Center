@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -11,16 +12,56 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+class SprintInput(BaseModel):
+    updates: str
+
 @app.get("/health")
 def health():
     return {"status": "ok"}
 
-@app.get("/test-summary")
-def test_summary():
+@app.post("/generate-summary")
+def generate_summary(data: SprintInput):
+
+    updates = data.updates
+
+    blockers = []
+    risks = []
+    action_items = []
+
+    if "blocked" in updates.lower():
+        blockers.append("Team reported active blockers")
+
+    if "delay" in updates.lower():
+        risks.append("Potential sprint delivery delay")
+
+    if "qa" in updates.lower():
+        risks.append("QA dependency may impact release timeline")
+    
+    if "approval" in updates.lower():
+        action_items.append("Follow up with leadership for approvals")
+    
+    if "release" in updates.lower():
+        risks.append("Release coordination required")    
+
+    action_items.append("Review sprint priorities")
+    action_items.append("Schedule stakeholder sync")
+
+    summary = f"""
+Sprint analysis completed successfully.
+
+Key themes identified:
+- Delivery progress reported
+- Risk indicators detected
+- Stakeholder coordination required
+- Action items generated
+
+Original updates:
+{updates}
+"""
+
     return {
-        "sprint": "Sprint 14",
-        "summary": "Backend API scaffolding complete.",
-        "blockers": [],
-        "risks": ["No AI integration yet"],
-        "action_items": ["Build AI summary engine next"]
+    "executive_summary": summary,
+    "blockers": blockers,
+    "risks": risks,
+    "action_items": action_items
     }
