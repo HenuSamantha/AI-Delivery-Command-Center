@@ -100,7 +100,7 @@ Supabase + pgvector
         ↓
 External Integrations
 (Jira, Slack, Meeting Notes)
-
+```
 ---
 
 # Dashboard Preview
