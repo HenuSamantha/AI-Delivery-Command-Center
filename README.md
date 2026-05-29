@@ -100,3 +100,100 @@ Supabase + pgvector
         ↓
 External Integrations
 (Jira, Slack, Meeting Notes)
+
+---
+
+# Dashboard Preview
+
+![Dashboard](screenshots/Dashboard-V1.png)
+![Dashboard](screenshots/Dashboard-V1.2.png)
+
+---
+
+# Current Status
+
+## MVP v1 Complete
+
+### Completed
+
+* Next.js frontend dashboard
+* FastAPI backend services
+* Sprint summary generation
+* Risk and blocker detection
+* Action item generation
+* Release status monitoring
+* Activity feed
+* Component-based UI architecture
+* GitHub workflow with feature branching and pull requests
+
+### In Progress
+
+* LLM-powered executive summaries
+* Delivery intelligence enhancements
+
+### Planned
+
+* Jira integration
+* Slack integration
+* Meeting transcript ingestion
+* Vector search and historical delivery insights
+* Delivery trend analytics
+* Executive reporting automation
+
+---
+
+# Technology Stack
+
+## Frontend
+
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+
+## Backend
+
+* FastAPI
+* Python
+
+## AI Layer
+
+* Claude (planned)
+* OpenAI (planned)
+* Ollama local models (planned)
+
+## Data Layer
+
+* Supabase (planned)
+* pgvector (planned)
+
+---
+
+# Development Roadmap
+
+### Phase 1 - MVP Dashboard ✅
+
+* Dashboard UI
+* Sprint analysis engine
+* Risk detection
+* Release monitoring
+
+### Phase 2 - AI Intelligence 🚧
+
+* LLM integration
+* Executive summary generation
+* Enhanced delivery insights
+
+### Phase 3 - Operational Integrations
+
+* Jira ingestion
+* Slack summarization
+* Meeting note analysis
+
+### Phase 4 - Delivery Intelligence Platform
+
+* Historical delivery analytics
+* Trend forecasting
+* Operational recommendations
+* Executive reporting automation
+
