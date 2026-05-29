@@ -1,5 +1,8 @@
 "use client";
-
+import MetricCard from "../components/MetricCard";
+import ActivityFeed from "../components/ActivityFeed";
+import ReleaseStatus from "../components/ReleaseStatus";
+import SummaryPanel from "../components/SummaryPanel";
 import { useState } from "react";
 
 export default function HomePage() {
@@ -47,24 +50,37 @@ export default function HomePage() {
           AI-powered sprint reporting and delivery insights
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mb-8">
 
-          <div className="bg-gray-900 p-6 rounded-2xl border border-gray-800">
-            <h2 className="text-lg font-semibold mb-2">Sprint Health</h2>
-            <p className="text-3xl font-bold text-green-400">92%</p>
-          </div>
+        <MetricCard
+          title="Sprint Health"
+          value="92%"
+          color="text-green-400"
+         />
 
-          <div className="bg-gray-900 p-6 rounded-2xl border border-gray-800">
-            <h2 className="text-lg font-semibold mb-2">Open Risks</h2>
-            <p className="text-3xl font-bold text-yellow-400">3</p>
-          </div>
+       <MetricCard
+        title="Open Risks"
+        value="3"
+        color="text-yellow-400"
+        />
 
-          <div className="bg-gray-900 p-6 rounded-2xl border border-gray-800">
-            <h2 className="text-lg font-semibold mb-2">Blocked Tickets</h2>
-            <p className="text-3xl font-bold text-red-400">5</p>
-          </div>
+      <MetricCard
+        title="Blocked Tickets"
+        value="5"
+        color="text-red-400"
+        />
+      
+      <MetricCard
+        title="AI Confidence"
+        value="87%"
+        color="text-blue-400"
+        />
+	   
+		<ReleaseStatus /> 
 
         </div>
+		
+		<ActivityFeed />
 
         <div className="bg-gray-900 p-6 rounded-2xl border border-gray-800 mb-8">
 
@@ -88,55 +104,7 @@ export default function HomePage() {
 
         </div>
 
-        {summary && (
-          <div className="bg-gray-900 p-6 rounded-2xl border border-gray-800">
-
-            <h2 className="text-2xl font-semibold mb-4">
-              AI Analysis
-            </h2>
-
-            <p className="mb-6 text-gray-300">
-              {summary.executive_summary}
-            </p>
-
-            <div className="mb-4">
-              <h3 className="font-semibold text-red-400 mb-2">
-                Blockers
-              </h3>
-
-              <ul className="list-disc list-inside text-gray-300">
-                {summary.blockers.map((item: string, index: number) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
-            </div>
-
-            <div className="mb-4">
-              <h3 className="font-semibold text-yellow-400 mb-2">
-                Risks
-              </h3>
-
-              <ul className="list-disc list-inside text-gray-300">
-                {summary.risks.map((item: string, index: number) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="font-semibold text-green-400 mb-2">
-                Action Items
-              </h3>
-
-              <ul className="list-disc list-inside text-gray-300">
-                {summary.action_items.map((item: string, index: number) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
-            </div>
-
-          </div>
-        )}
+        {summary && <SummaryPanel summary={summary} />}
 
       </div>
     </main>
