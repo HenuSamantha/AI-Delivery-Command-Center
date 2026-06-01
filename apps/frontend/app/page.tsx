@@ -27,14 +27,13 @@ export default function HomePage() {
     ).length
   : 0;
 
-const riskCount = deliveryContext
-  ? deliveryContext.jira_tickets.filter(
-      (ticket: any) =>
-        ticket.status === "Blocked" ||
-        ticket.status === "In Progress"
-    ).length
-  : 0;
-
+  const releaseStatus =
+  blockedCount > 0
+    ? "At Risk"
+    : summary && summary.risks.length > 0
+      ? "Conditional"
+      : "Ready";
+      
   const generateSummary = async () => {
 
     setLoading(true);
@@ -84,7 +83,7 @@ const riskCount = deliveryContext
 
        <MetricCard
         title="Open Risks"
-        value={riskCount.toString()}
+        value={summary ? summary.risks.length.toString() : "0"}
         color="text-yellow-400"
         />
 
@@ -101,7 +100,7 @@ const riskCount = deliveryContext
         />
 
      <ReleaseStatus
-        status={summary ? summary.release_readiness : "At Risk"}
+        status={summary ? summary.release_readiness : "Pending"}
       />
         </div>
 		
