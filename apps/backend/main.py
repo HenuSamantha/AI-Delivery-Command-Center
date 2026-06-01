@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from src.services.ai_service import analyze_sprint_updates
+from src.services.jira_service import get_jira_tickets
+from src.services.slack_service import get_slack_messages
 
 app = FastAPI()
 
@@ -23,10 +25,32 @@ class SprintInput(BaseModel):
 def health():
     return {"status": "ok"}
 
+@app.get("/delivery-context")
+def delivery_context():
+    return {
+        "jira_tickets": get_jira_tickets(),
+        "slack_messages": get_slack_messages()
+        }
+
 @app.post("/generate-summary")
 def generate_summary(data: SprintInput):
     try:
-        return analyze_sprint_updates(data.updates)
+        jira_tickets = get_jira_tickets()
+        slack_messages = get_slack_messages()
+
+        combined_context = f"""
+SPRINT UPDATE:
+{data.updates}
+
+JIRA TICKETS:
+{jira_tickets}
+
+SLACK MESSAGES:
+{slack_messages}
+"""
+
+        return analyze_sprint_updates(combined_context)
+
     except Exception as e:
         return {
             "executive_summary": f"Backend error: {str(e)}",

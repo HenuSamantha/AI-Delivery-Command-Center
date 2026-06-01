@@ -4,7 +4,8 @@ import ActivityFeed from "../components/ActivityFeed";
 import ReleaseStatus from "../components/ReleaseStatus";
 import SummaryPanel from "../components/SummaryPanel";
 import ExecutiveRecommendation from "../components/ExecutiveRecommendation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import ConnectedSources from "../components/ConnectedSources";
 
 
 export default function HomePage() {
@@ -12,6 +13,27 @@ export default function HomePage() {
   const [updates, setUpdates] = useState("");
   const [summary, setSummary] = useState<any>(null);
   const [loading, setLoading] = useState(false);
+  const [deliveryContext, setDeliveryContext] = useState<any>(null);
+  
+  useEffect(() => {
+    fetch("http://127.0.0.1:8000/delivery-context")
+      .then((res) => res.json())
+      .then((data) => setDeliveryContext(data));
+  }, []);
+
+  const blockedCount = deliveryContext
+  ? deliveryContext.jira_tickets.filter(
+      (ticket: any) => ticket.status === "Blocked"
+    ).length
+  : 0;
+
+const riskCount = deliveryContext
+  ? deliveryContext.jira_tickets.filter(
+      (ticket: any) =>
+        ticket.status === "Blocked" ||
+        ticket.status === "In Progress"
+    ).length
+  : 0;
 
   const generateSummary = async () => {
 
@@ -62,13 +84,13 @@ export default function HomePage() {
 
        <MetricCard
         title="Open Risks"
-        value="3"
+        value={riskCount.toString()}
         color="text-yellow-400"
         />
 
       <MetricCard
         title="Blocked"
-        value="5"
+        value={blockedCount.toString()}
         color="text-red-400"
         />
       
@@ -77,13 +99,19 @@ export default function HomePage() {
         value={summary ? `${summary.ai_confidence}%` : "87%"}
         color="text-blue-400"
         />
-	   
+
      <ReleaseStatus
         status={summary ? summary.release_readiness : "At Risk"}
       />
-
         </div>
 		
+        {deliveryContext && (
+  <ConnectedSources
+    jiraTickets={deliveryContext.jira_tickets}
+    slackMessages={deliveryContext.slack_messages}
+  />
+)}
+
       <ActivityFeed
         activities={
           summary
