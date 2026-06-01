@@ -3,7 +3,9 @@ import MetricCard from "../components/MetricCard";
 import ActivityFeed from "../components/ActivityFeed";
 import ReleaseStatus from "../components/ReleaseStatus";
 import SummaryPanel from "../components/SummaryPanel";
+import ExecutiveRecommendation from "../components/ExecutiveRecommendation";
 import { useState } from "react";
+
 
 export default function HomePage() {
 
@@ -54,7 +56,7 @@ export default function HomePage() {
 
         <MetricCard
           title="Sprint Health"
-          value="92%"
+          value={summary ? `${summary.delivery_health_score}%` : "92%"}
           color="text-green-400"
          />
 
@@ -65,22 +67,43 @@ export default function HomePage() {
         />
 
       <MetricCard
-        title="Blocked Tickets"
+        title="Blocked"
         value="5"
         color="text-red-400"
         />
       
       <MetricCard
         title="AI Confidence"
-        value="87%"
+        value={summary ? `${summary.ai_confidence}%` : "87%"}
         color="text-blue-400"
         />
 	   
-		<ReleaseStatus /> 
+     <ReleaseStatus
+        status={summary ? summary.release_readiness : "At Risk"}
+      />
 
         </div>
 		
-		<ActivityFeed />
+      <ActivityFeed
+        activities={
+          summary
+            ? [
+                "AI summary generated",
+                `${summary.blockers.length} blockers identified`,
+                `${summary.risks.length} risks detected`,
+                `Release status: ${summary.release_readiness}`,
+              ]
+            : [
+                "Waiting for sprint analysis...",
+              ]
+  }
+/>
+    
+    {summary && (
+      <ExecutiveRecommendation
+        recommendation={summary.executive_recommendation}
+      />
+    )}
 
         <div className="bg-gray-900 p-6 rounded-2xl border border-gray-800 mb-8">
 
