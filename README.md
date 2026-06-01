@@ -51,6 +51,15 @@ The platform leverages modern LLM orchestration and workflow automation to reduc
 - Meeting transcript analysis
 - AI-powered operational recommendations
 
+## Delivery Intelligence
+- AI-generated executive summaries
+- Delivery health scoring
+- Release readiness assessment
+- AI confidence scoring
+- Executive recommendations
+- Dynamic activity feed
+- Automated blocker and risk detection
+
 ---
 
 # Problem Statement
