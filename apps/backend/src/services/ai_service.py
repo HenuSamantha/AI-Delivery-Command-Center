@@ -1,27 +1,37 @@
+import json
 from ollama import chat
 
 
-def analyze_sprint_updates(updates: str) -> str:
+def analyze_sprint_updates(updates: str) -> dict:
     prompt = f"""
 You are an Engineering Delivery Analyst.
 
-Analyze the sprint update below and return a concise delivery intelligence report.
+Analyze the sprint update below.
 
-Use this exact format:
+Return ONLY valid JSON.
+Do not include markdown.
+Do not include explanations outside the JSON.
 
-EXECUTIVE SUMMARY:
-Write a concise leadership-ready summary.
+Use this exact schema:
 
-RISKS:
-- List delivery risks.
+{{
+  "executive_summary": "A concise summary",
+  "blockers": ["Specific blocker"],
+  "risks": ["Specific risk"],
+  "action_items": ["Specific action item"]
+}}
 
-BLOCKERS:
-- List blockers.
+Populate all fields with actual analysis.
 
-ACTION ITEMS:
-- List recommended actions.
+Do NOT use placeholder values such as:
+"string"
+"example"
+"sample"
 
-SPRINT UPDATE:
+Generate real blockers, risks, and action items.
+
+Sprint Update:
+
 {updates}
 """
 
@@ -35,4 +45,29 @@ SPRINT UPDATE:
         ],
     )
 
-    return response["message"]["content"]
+    content = response["message"]["content"]
+
+    content = content.replace("```json", "")
+    content = content.replace("```", "")
+    content = content.strip()
+
+    start = content.find("{")
+    end = content.rfind("}") + 1
+
+    if start != -1 and end != -1:
+        content = content[start:end]
+
+    try:
+        return json.loads(content)
+
+    except Exception as e:
+        print("RAW AI RESPONSE:")
+        print(content)
+        print(f"Error parsing JSON: {e}")
+
+        return {
+            "executive_summary": content,
+            "blockers": [],
+            "risks": [],
+            "action_items": []
+        }
