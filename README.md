@@ -24,7 +24,28 @@ AI Delivery Command Center centralizes fragmented operational data across Jira, 
 The platform leverages modern LLM orchestration and workflow automation to reduce manual project coordination overhead while improving cross-functional alignment and executive reporting.
 
 ---
+## Screenshots
 
+### AI Delivery Intelligence Dashboard
+
+![Dashboard V2](screenshots/Dashboard-V2.png)
+
+The dashboard provides AI-powered delivery intelligence including:
+
+* Delivery Health Score
+* Release Readiness Assessment
+* AI Confidence Scoring
+* Executive Recommendations
+* Risk and Blocker Detection
+* Dynamic Activity Feed
+
+### Executive Delivery Insights
+
+![Dashboard V2.1](screenshots/Dashboard-V2.1.png)
+
+The platform analyzes sprint updates using a locally hosted Llama 3.2 model and generates structured executive summaries, delivery risks, blockers, action items, and release readiness recommendations.
+
+---
 # Core Features
 
 ## Sprint Intelligence
