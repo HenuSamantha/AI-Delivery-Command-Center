@@ -18,7 +18,11 @@ Use this exact schema:
   "executive_summary": "A concise summary",
   "blockers": ["Specific blocker"],
   "risks": ["Specific risk"],
-  "action_items": ["Specific action item"]
+  "action_items": ["Specific action item"],
+  "delivery_health_score": 85,
+  "release_readiness": "At Risk",
+  "ai_confidence": 87,
+  "executive_recommendation": "Specific leadership recommendation"
 }}
 
 Populate all fields with actual analysis.
@@ -28,7 +32,7 @@ Do NOT use placeholder values such as:
 "example"
 "sample"
 
-Generate real blockers, risks, and action items.
+Generate real blockers, risks, action items, delivery health score, release readiness, AI confidence, and executive recommendation.
 
 Sprint Update:
 
@@ -54,9 +58,12 @@ Sprint Update:
     start = content.find("{")
     end = content.rfind("}") + 1
 
-    if start != -1 and end != -1:
+    if start != -1 and end != 0:
         content = content[start:end]
 
+    if content.count("{") > content.count("}"):
+        content += "}"
+    
     try:
         return json.loads(content)
 
@@ -69,5 +76,9 @@ Sprint Update:
             "executive_summary": content,
             "blockers": [],
             "risks": [],
-            "action_items": []
+            "action_items": [],
+            "delivery_health_score": 70,
+            "release_readiness": "At Risk",
+            "ai_confidence": 60,
+            "executive_recommendation": "Review sprint risks and validate release readiness."
         }
