@@ -17,7 +17,7 @@ def get_jira_tickets():
         {
             "key": "ADC-103",
             "title": "Release Approval",
-            "status": "In Progress",
+            "status": "Done",
             "priority": "High",
             "owner": "Product Leadership",
         },

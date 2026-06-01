@@ -34,6 +34,26 @@ Do NOT use placeholder values such as:
 
 Generate real blockers, risks, action items, delivery health score, release readiness, AI confidence, and executive recommendation.
 
+Release Readiness Rules:
+
+Ready:
+- No blockers exist
+- Release approval has been received
+- Testing is complete
+
+Conditional:
+- Minor risks remain
+- Testing is still in progress
+- Non-critical dependencies remain
+
+At Risk:
+- One or more blockers exist
+- Release approval is still pending
+- Critical testing issues remain
+- Major delivery risks are present
+
+Determine release_readiness using these rules.
+
 Sprint Update:
 
 {updates}
