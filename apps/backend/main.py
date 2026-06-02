@@ -37,19 +37,40 @@ def generate_summary(data: SprintInput):
     try:
         jira_tickets = get_jira_tickets()
         slack_messages = get_slack_messages()
+        blocked_tickets = [
+            ticket
+            for ticket in jira_tickets
+            if ticket["status"] == "Blocked"
+        ]
+        blocked_ticket_titles = [
+        f'{ticket["key"]}: {ticket["title"]}'
+        for ticket in blocked_tickets
+        ]
+
+        if not data.updates.strip():
+            sprint_update = "No sprint update provided."
+        else:
+            sprint_update = data.updates
 
         combined_context = f"""
-SPRINT UPDATE:
-{data.updates}
+        SPRINT UPDATE:
+        {sprint_update}
 
-JIRA TICKETS:
-{jira_tickets}
+        BLOCKED TICKETS:
+        {blocked_tickets}
 
-SLACK MESSAGES:
-{slack_messages}
-"""
+        JIRA TICKETS:
+        {jira_tickets}
 
-        return analyze_sprint_updates(combined_context)
+        SLACK MESSAGES:
+        {slack_messages}
+        """
+
+        ai_result = analyze_sprint_updates(combined_context)
+
+        ai_result["blockers"] = blocked_ticket_titles
+
+        return ai_result
 
     except Exception as e:
         return {
