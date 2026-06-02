@@ -4,9 +4,35 @@ from ollama import chat
 
 def analyze_sprint_updates(updates: str) -> dict:
     prompt = f"""
-You are an Engineering Delivery Analyst.
+You are an Engineering Delivery Analyst responsible for assessing delivery health, release readiness, and operational risk.
 
-Analyze the sprint update below.
+You must evaluate:
+
+- Jira ticket status
+- Slack delivery signals
+- Sprint updates
+
+Use evidence from all sources before making recommendations.
+
+Do not exaggerate risks.
+Do not assume blockers exist unless they are explicitly present.
+
+When determining release readiness:
+
+Ready:
+- No blockers
+- Release approved
+- Testing completed
+
+Conditional:
+- Minor risks remain
+- Testing still in progress
+
+At Risk:
+- Blockers exist
+- Critical testing issues remain
+
+Always justify your release readiness decision using the provided data.
 
 Return ONLY valid JSON.
 Do not include markdown.
@@ -18,12 +44,27 @@ Use this exact schema:
   "executive_summary": "A concise summary",
   "blockers": ["Specific blocker"],
   "risks": ["Specific risk"],
+  "risk_severity": "Low",
   "action_items": ["Specific action item"],
   "delivery_health_score": 85,
   "release_readiness": "At Risk",
   "ai_confidence": 87,
   "executive_recommendation": "Specific leadership recommendation"
 }}
+
+Risk Severity Rules:
+
+Low:
+- 0 blockers
+- 0-1 risks
+
+Medium:
+- 1 blocker
+- 2-3 risks
+
+High:
+- Multiple blockers
+- Release at risk
 
 Populate all fields with actual analysis.
 
@@ -53,6 +94,26 @@ At Risk:
 - Major delivery risks are present
 
 Determine release_readiness using these rules.
+Important source-of-truth rules:
+
+- Jira ticket status is the source of truth for blockers.
+- Only tickets with status "Blocked" may be listed as blockers.
+- Tickets with status "Done" are not blockers or risks.
+- Tickets with status "In QA" are not blockers.
+- Do not create blockers that are not present in the BLOCKED TICKETS section.
+- Risks may come from Slack signals, sprint updates, or non-blocking Jira concerns, but completed tickets should not be classified as risks.
+
+If no sprint update is provided, do not invent risks, blockers, or dependencies.
+Base your analysis only on Jira tickets and Slack messages.
+
+If there are no blocked tickets, release approval has been received, and testing is complete, release_readiness should be "Ready" unless critical risks are explicitly stated.
+
+Do not infer blockers.
+Do not infer release approval issues.
+Do not infer testing issues.
+Use only evidence provided in the sprint update, Jira tickets, and Slack messages.
+
+If no sprint update is provided, do not create a risk based on the absence of a sprint update.
 
 Sprint Update:
 
@@ -96,6 +157,7 @@ Sprint Update:
             "executive_summary": content,
             "blockers": [],
             "risks": [],
+            "risk_severity": "Medium",
             "action_items": [],
             "delivery_health_score": 70,
             "release_readiness": "At Risk",
