@@ -93,6 +93,9 @@ At Risk:
 - Critical testing issues remain
 - Major delivery risks are present
 
+Do not classify tickets with status "Done" as risks.
+Tickets in "In QA" are considered in progress and should not automatically be classified as risks.
+
 Determine release_readiness using these rules.
 Important source-of-truth rules:
 
@@ -112,6 +115,9 @@ Do not infer blockers.
 Do not infer release approval issues.
 Do not infer testing issues.
 Use only evidence provided in the sprint update, Jira tickets, and Slack messages.
+Do not recommend additional testing if testing has been completed.
+Do not recommend obtaining release approval if release approval has already been received.
+Use the Jira and Slack context as the source of truth.
 
 If no sprint update is provided, do not create a risk based on the absence of a sprint update.
 
