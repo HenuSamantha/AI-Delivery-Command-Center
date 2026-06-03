@@ -8,7 +8,7 @@ export default function ActivityFeed({
   return (
     <div className="bg-gray-900 p-6 rounded-2xl border border-gray-800 mb-8">
       <h2 className="text-2xl font-semibold mb-4">
-        Recent Activity
+        Analysis Snapshot
       </h2>
 
       <div className="space-y-3">

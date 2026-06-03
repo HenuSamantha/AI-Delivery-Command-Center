@@ -77,7 +77,7 @@ export default function HomePage() {
 
         <MetricCard
           title="Sprint Health"
-          value={summary ? `${summary.delivery_health_score}%` : "92%"}
+          value={summary ? `${summary.delivery_health_score}%` : "--"}
           color="text-green-400"
          />
 
@@ -95,7 +95,7 @@ export default function HomePage() {
       
       <MetricCard
         title="AI Confidence"
-        value={summary ? `${summary.ai_confidence}%` : "87%"}
+        value={summary ? `${summary.ai_confidence}%` : "--"}
         color="text-blue-400"
         />
 
