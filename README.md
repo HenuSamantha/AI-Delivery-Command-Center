@@ -44,13 +44,15 @@ When the user clicks Generate Summary, the button updates to Generating... while
 
 ![Dashboard Overview](screenshots/Dashboard-Analysis.png)
 
-The Sprint Health and Release Status metric cards are populated based on the backend rules engine. The Open Risks and Blocked metric cards are based on the deterministic Jira data. The AI confidence score is provided by Llama 3.2.
+FastAPI ingests the sprint update provided by the user, aggregates Jira delivery data and Slack delivery signals, and builds a unified delivery context. The platform combines deterministic business rules for operational metrics such as release readiness, blockers, risks, and sprint health with AI-powered analysis from Llama 3.2.
+
+The Sprint Health and Release Status metric cards are populated based on the backend rules engine. The Open Risks and Blocked metric cards are based on the deterministic Jira data. The AI confidence score is provided by Llama 3.2. The Analysis Snapshot provides a concise summary of the latest delivery assessment, including blockers identified, risks detected, release readiness, and key outcomes from the AI analysis. 
 
 ## Dashboard Executive Summary
 
 ![Dashboard Overview](screenshots/Dashboard-Executive-Summary.png)
 
-FastAPI ingests the sprint update provided by the user, aggregates Jira delivery data and Slack delivery signals, and builds a unified delivery context. The platform combines deterministic business rules for operational metrics such as release readiness, blockers, risks, and sprint health with AI-powered analysis from Llama 3.2. Jira and Slack serve as the source of truth for delivery signals, while the AI generates executive summaries, recommendations, action items, and delivery insights from the combined context.
+AI-powered analysis from Llama 3.2 generates the executive summary, recommendations, action items, and delivery insights from the combined context.
 
 ---
 
