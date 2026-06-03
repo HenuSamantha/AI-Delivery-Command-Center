@@ -194,21 +194,6 @@ Instead of manually reviewing tickets, Slack messages, and sprint notes, the pla
 
 ---
 
-## Roadmap
-
-Planned enhancements:
-
-* Real Jira API integration
-* Real Slack API integration
-* Automated daily delivery summaries
-* Historical sprint trend analysis
-* Risk severity classification
-* Stakeholder-ready status update generation
-* Demo video walkthrough
-* Deployment to a public environment
-
----
-
 ## Project Status
 
 Current version includes:
