@@ -1,229 +1,230 @@
-# Why This Project
-This project was built to explore how AI-native operational tooling can improve engineering execution, stakeholder communication, and delivery transparency without increasing process complexity.
-
-It also demonstrates practical applications of:
-
-- AI workflow orchestration
-- product operations automation
-- LLM-powered summarization
-- operational intelligence systems
-- modern AI-assisted software delivery
-
----
-
 # AI Delivery Command Center
 
-AI-powered operational intelligence platform that transforms engineering workflows into actionable delivery insights, automated stakeholder communication, and sprint risk analysis.
+AI Delivery Command Center is an AI-assisted operational intelligence dashboard that transforms Jira delivery data, Slack signals, and sprint updates into executive-ready delivery insights.
+
+The platform combines deterministic delivery metrics with AI-generated analysis to provide release readiness, delivery health, blocker visibility, risk summaries, action items, and executive recommendations.
 
 ---
 
-# Overview
+## Why This Project
 
-AI Delivery Command Center centralizes fragmented operational data across Jira, Slack, sprint artifacts, and meeting notes to provide real-time delivery visibility for engineering and product teams.
+Engineering and product teams often operate across fragmented tools like Jira, Slack, sprint notes, and stakeholder updates. This creates manual reporting overhead, unclear delivery health, and delayed escalation of risks.
 
-The platform leverages modern LLM orchestration and workflow automation to reduce manual project coordination overhead while improving cross-functional alignment and executive reporting.
+AI Delivery Command Center was built to explore how AI-native tooling can improve delivery transparency without adding process complexity.
+
+The project demonstrates practical applications of:
+
+* AI workflow orchestration
+* Delivery intelligence
+* Product operations automation
+* Technical program management tooling
+* LLM-powered executive reporting
+* Source-of-truth driven dashboard design
 
 ---
+
 ## Screenshots
 
-### AI Delivery Intelligence Dashboard
+### Delivery Intelligence Dashboard
 
-![Dashboard V2](screenshots/Dashboard-V2.png)
+![Dashboard V3](screenshots/Dashboard-V3.png)
 
-The dashboard provides AI-powered delivery intelligence including:
+The dashboard surfaces delivery health, release readiness, connected Jira and Slack signals, executive recommendations, and AI-generated sprint analysis.
+
+---
+
+## Core Features
+
+### Delivery Intelligence
 
 * Delivery Health Score
 * Release Readiness Assessment
-* AI Confidence Scoring
+* AI Confidence Score
 * Executive Recommendations
-* Risk and Blocker Detection
 * Dynamic Activity Feed
+* Risk and Blocker Detection
 
-### Executive Delivery Insights
+### Connected Sources
 
-![Dashboard V2.1](screenshots/Dashboard-V2.1.png)
+* Mock Jira ticket ingestion
+* Mock Slack delivery signal ingestion
+* Delivery context aggregation
+* Source-of-truth blocker detection
+* Deterministic release readiness logic
 
-The platform analyzes sprint updates using a locally hosted Llama 3.2 model and generates structured executive summaries, delivery risks, blockers, action items, and release readiness recommendations.
+### AI Analysis
 
----
-# Core Features
-
-## Sprint Intelligence
-- AI-generated sprint summaries
-- Delivery health analysis
-- Velocity trend monitoring
-- Release readiness insights
-
-## Risk & Blocker Detection
-- Automatic blocker identification
-- Delivery risk prediction
-- Dependency tracking
-- Escalation surfacing from Slack and meeting notes
-
-## Executive Reporting
-- Stakeholder-ready status updates
-- Leadership summaries
-- Action item generation
-- Automated release communication drafts
-
-## Workflow Automation
-- Jira ingestion and parsing
-- Slack conversation summarization
-- Meeting transcript analysis
-- AI-powered operational recommendations
-
-## Delivery Intelligence
-- AI-generated executive summaries
-- Delivery health scoring
-- Release readiness assessment
-- AI confidence scoring
-- Executive recommendations
-- Dynamic activity feed
-- Automated blocker and risk detection
+* AI-generated executive summaries
+* AI-generated action items
+* AI-generated delivery recommendations
+* Structured JSON output from Llama 3.2
+* Local LLM orchestration through Ollama
 
 ---
 
-# Problem Statement
+## Architecture
 
-Engineering organizations often rely on fragmented workflows spread across:
-- Jira
-- Slack
-- sprint meetings
-- release documentation
-- stakeholder updates
+```mermaid
+flowchart TD
+    A[Jira Tickets] --> D[FastAPI Backend]
+    B[Slack Signals] --> D
+    C[Manual Sprint Update] --> D
 
-This creates:
-- operational overhead
-- delivery blind spots
-- manual reporting fatigue
-- communication delays
-- cross-functional misalignment
+    D --> E[Delivery Context Aggregator]
+    E --> F[Rules Engine]
+    E --> G[AI Analysis Service]
 
-Teams spend significant time translating raw engineering activity into actionable business insights.
+    F --> H[Deterministic Metrics]
+    H --> H1[Blocked Count]
+    H --> H2[Open Risks]
+    H --> H3[Release Status]
+    H --> H4[Sprint Health Score]
 
----
+    G --> I[Ollama + Llama 3.2]
+    I --> J[Structured AI Output]
+    J --> J1[Executive Summary]
+    J --> J2[Recommendations]
+    J --> J3[Action Items]
+    J --> J4[AI Confidence]
 
-# Solution
-
-AI Delivery Command Center acts as an operational intelligence layer for engineering and product organizations by consolidating delivery data into AI-generated insights and workflow automation.
-
-The system transforms operational noise into:
-- concise sprint summaries
-- delivery risk alerts
-- executive-ready reporting
-- actionable follow-up items
-- release health visibility
-
----
-
-# Architecture
-
-```txt
-Frontend (Next.js + Tailwind)
-        ↓
-FastAPI Backend Services
-        ↓
-AI Orchestration Layer
-(Claude / OpenAI / Ollama)
-        ↓
-Supabase + pgvector
-        ↓
-External Integrations
-(Jira, Slack, Meeting Notes)
+    H --> K[Next.js Dashboard]
+    J --> K
 ```
----
-
-# Dashboard Preview
-
-![Dashboard](screenshots/Dashboard-V1.png)
-![Dashboard](screenshots/Dashboard-V1.2.png)
 
 ---
 
-# Current Status
+## System Design
 
-## MVP v1 Complete
+The platform separates operational facts from AI-generated interpretation.
 
-### Completed
+### Source-of-Truth Metrics
 
-* Next.js frontend dashboard
-* FastAPI backend services
-* Sprint summary generation
-* Risk and blocker detection
-* Action item generation
-* Release status monitoring
-* Activity feed
-* Component-based UI architecture
-* GitHub workflow with feature branching and pull requests
+Operational metrics are calculated from structured delivery data.
 
-### In Progress
+* Jira owns blocker and ticket status truth
+* Slack provides release and testing signals
+* Backend rules calculate release readiness and delivery health
 
-* LLM-powered executive summaries
-* Delivery intelligence enhancements
+### AI-Generated Intelligence
 
-### Planned
+AI is used for interpretation, summarization, and recommendations.
 
-* Jira integration
-* Slack integration
-* Meeting transcript ingestion
-* Vector search and historical delivery insights
-* Delivery trend analytics
-* Executive reporting automation
+* Executive summary
+* Delivery narrative
+* Recommended actions
+* AI confidence score
+
+This design improves trust by preventing the AI from overriding source-of-truth delivery data.
 
 ---
 
-# Technology Stack
+## Technology Stack
 
-## Frontend
+### Frontend
 
 * Next.js
 * React
 * TypeScript
 * Tailwind CSS
 
-## Backend
+### Backend
 
-* FastAPI
 * Python
+* FastAPI
+* Pydantic
+* Uvicorn
 
-## AI Layer
+### AI Layer
 
-* Claude (planned)
-* OpenAI (planned)
-* Ollama local models (planned)
+* Ollama
+* Llama 3.2
+* Structured JSON prompting
 
-## Data Layer
+### Integrations
 
-* Supabase (planned)
-* pgvector (planned)
+* Mock Jira service
+* Mock Slack service
+* Delivery context API
 
 ---
 
-# Development Roadmap
+## Current Data Flow
 
-### Phase 1 - MVP Dashboard ✅
+```txt
+Jira Tickets
+Slack Signals
+Manual Sprint Update
+        ↓
+FastAPI Backend
+        ↓
+Delivery Context Aggregation
+        ↓
+Rules Engine + AI Service
+        ↓
+Structured Delivery Intelligence
+        ↓
+Next.js Dashboard
+```
 
-* Dashboard UI
-* Sprint analysis engine
-* Risk detection
-* Release monitoring
+---
 
-### Phase 2 - AI Intelligence 🚧
+## Key Design Decision
 
-* LLM integration
-* Executive summary generation
-* Enhanced delivery insights
+The platform does not rely on AI for every decision.
 
-### Phase 3 - Operational Integrations
+Release readiness, blocker counts, and health scoring are calculated through deterministic backend logic using source-of-truth delivery signals.
 
-* Jira ingestion
-* Slack summarization
-* Meeting note analysis
+AI is used where it adds the most value: synthesizing complex operational context into clear summaries, recommendations, and action items.
 
-### Phase 4 - Delivery Intelligence Platform
+This mirrors how enterprise AI systems should be designed: reliable rules for governance, AI for interpretation.
 
-* Historical delivery analytics
-* Trend forecasting
-* Operational recommendations
-* Executive reporting automation
+---
+
+## Example Use Case
+
+A delivery leader can use the dashboard to quickly understand:
+
+* Are there active blockers?
+* Is the release ready?
+* What risks require attention?
+* What should leadership do next?
+* What delivery signals are coming from Jira and Slack?
+
+Instead of manually reviewing tickets, Slack messages, and sprint notes, the platform consolidates those signals into a single command center.
+
+---
+
+## Roadmap
+
+Planned enhancements:
+
+* Real Jira API integration
+* Real Slack API integration
+* Automated daily delivery summaries
+* Historical sprint trend analysis
+* Risk severity classification
+* Stakeholder-ready status update generation
+* Demo video walkthrough
+* Deployment to a public environment
+
+---
+
+## Project Status
+
+Current version includes:
+
+* Working Next.js dashboard
+* Working FastAPI backend
+* Local Llama 3.2 integration through Ollama
+* Mock Jira and Slack integrations
+* Deterministic release readiness logic
+* AI-generated executive summaries and action items
+* Portfolio-ready dashboard screenshots
+
+---
+
+## Demo
+
+Demo video coming soon.
+
 
