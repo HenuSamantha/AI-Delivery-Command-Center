@@ -24,12 +24,33 @@ The project demonstrates practical applications of:
 ---
 
 ## Screenshots
+The dashboard surfaces delivery health, release readiness, connected Jira and Slack signals, executive recommendations, and AI-generated sprint analysis.
 
 ### Delivery Intelligence Dashboard
 
-![Dashboard V3](screenshots/Dashboard-V3.png)
+## Dashboard Overview
 
-The dashboard surfaces delivery health, release readiness, connected Jira and Slack signals, executive recommendations, and AI-generated sprint analysis.
+![Dashboard Overview](screenshots/Dashboard-Overview.png)
+
+On load, the dashboard retrieves operational delivery data from Jira and Slack. AI analysis is generated on demand when the user submits a sprint update or clicks the "Generate Summary" CTA button. This reduces unnecessary LLM calls while keeping operational metrics are available in real time.
+
+## Dashboard Generating
+
+![Dashboard Overview](screenshots/Dashboard-Generating.png)
+
+When the user clicks Generate Summary, the button updates to Generating... while the platform performs a full delivery analysis in the backend.
+
+## Dashboard Analysis
+
+![Dashboard Overview](screenshots/Dashboard-Analysis.png)
+
+The Sprint Health and Release Status metric cards are populated based on the backend rules engine. The Open Risks and Blocked metric cards are based on the deterministic Jira data. The AI confidence score is provided by Llama 3.2.
+
+## Dashboard Executive Summary
+
+![Dashboard Overview](screenshots/Dashboard-Executive-Summary.png)
+
+FastAPI ingests the sprint update provided by the user, aggregates Jira delivery data and Slack delivery signals, and builds a unified delivery context. The platform combines deterministic business rules for operational metrics such as release readiness, blockers, risks, and sprint health with AI-powered analysis from Llama 3.2. Jira and Slack serve as the source of truth for delivery signals, while the AI generates executive summaries, recommendations, action items, and delivery insights from the combined context.
 
 ---
 
