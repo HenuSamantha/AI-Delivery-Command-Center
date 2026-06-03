@@ -37,38 +37,84 @@ def generate_summary(data: SprintInput):
     try:
         jira_tickets = get_jira_tickets()
         slack_messages = get_slack_messages()
+        
         blocked_tickets = [
             ticket
             for ticket in jira_tickets
             if ticket["status"] == "Blocked"
         ]
+        
         blocked_ticket_titles = [
         f'{ticket["key"]}: {ticket["title"]}'
         for ticket in blocked_tickets
         ]
-
-        if not data.updates.strip():
-            sprint_update = "No sprint update provided."
-        else:
-            sprint_update = data.updates
+        
+        sprint_update = (
+        data.updates
+        if data.updates.strip()
+            else "No sprint update provided."
+        )
 
         combined_context = f"""
-        SPRINT UPDATE:
-        {sprint_update}
+SPRINT UPDATE:
+{sprint_update}
 
-        BLOCKED TICKETS:
-        {blocked_tickets}
+BLOCKED TICKETS:
+{blocked_ticket_titles}
 
-        JIRA TICKETS:
-        {jira_tickets}
+JIRA TICKETS:
+{jira_tickets}
 
-        SLACK MESSAGES:
-        {slack_messages}
-        """
+SLACK MESSAGES:
+{slack_messages}
+"""
 
         ai_result = analyze_sprint_updates(combined_context)
 
         ai_result["blockers"] = blocked_ticket_titles
+
+        open_risks = [
+            ticket
+            for ticket in jira_tickets
+            if ticket["status"] == "Blocked"
+        ]
+
+        ai_result["risks"] = [
+            f'{ticket["key"]}: {ticket["title"]}'
+            for ticket in open_risks
+        ]
+
+        release_approved = any(
+            "approved" in message.lower()
+            for message in slack_messages
+        )
+
+        testing_complete = any(
+            "testing completed" in message.lower()
+            or "testing complete" in message.lower()
+            for message in slack_messages
+        )
+
+        has_blockers = len(blocked_ticket_titles) > 0
+        has_risks = len(ai_result.get("risks", [])) > 0
+
+        if has_blockers:
+            ai_result["release_readiness"] = "At Risk"
+
+        elif release_approved and testing_complete:
+            ai_result["release_readiness"] = "Ready"
+
+        else:
+            ai_result["release_readiness"] = "Conditional"
+
+        if ai_result["release_readiness"] == "Ready":
+            ai_result["delivery_health_score"] = 95
+
+        elif ai_result["release_readiness"] == "Conditional":
+            ai_result["delivery_health_score"] = 85
+
+        else:
+            ai_result["delivery_health_score"] = 70
 
         return ai_result
 
@@ -77,5 +123,9 @@ def generate_summary(data: SprintInput):
             "executive_summary": f"Backend error: {str(e)}",
             "blockers": [],
             "risks": [],
-            "action_items": []
+            "action_items": [],
+            "delivery_health_score": 70,
+            "release_readiness": "At Risk",
+            "ai_confidence": 60,
+            "executive_recommendation": "Review sprint risks and validate release readiness."
         }
