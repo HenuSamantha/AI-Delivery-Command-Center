@@ -23,6 +23,12 @@ The project demonstrates practical applications of:
 
 ---
 
+## Demo Video
+
+[AI Delivery Command Center Demo](https://youtu.be/KcNc55Tl8kg)
+
+---
+
 ## Screenshots
 The dashboard surfaces delivery health, release readiness, connected Jira and Slack signals, executive recommendations, and AI generated sprint analysis.
 
