@@ -1,8 +1,8 @@
 # AI Delivery Command Center
 
-AI Delivery Command Center is an AI-assisted operational intelligence dashboard that transforms Jira delivery data, Slack signals, and sprint updates into executive-ready delivery insights.
+AI Delivery Command Center is an AI-assisted operational intelligence dashboard that transforms Jira delivery data, Slack signals, and sprint updates into executive ready delivery insights.
 
-The platform combines deterministic delivery metrics with AI-generated analysis to provide release readiness, delivery health, blocker visibility, risk summaries, action items, and executive recommendations.
+The platform combines delivery metrics with AI generated analysis to provide release readiness, delivery health, blocker visibility, risk summaries, action items, and executive recommendations.
 
 ---
 
@@ -10,7 +10,7 @@ The platform combines deterministic delivery metrics with AI-generated analysis 
 
 Engineering and product teams often operate across fragmented tools like Jira, Slack, sprint notes, and stakeholder updates. This creates manual reporting overhead, unclear delivery health, and delayed escalation of risks.
 
-AI Delivery Command Center was built to explore how AI-native tooling can improve delivery transparency without adding process complexity.
+AI Delivery Command Center was built to explore how AI native tooling can improve delivery transparency without adding process complexity.
 
 The project demonstrates practical applications of:
 
@@ -18,13 +18,13 @@ The project demonstrates practical applications of:
 * Delivery intelligence
 * Product operations automation
 * Technical program management tooling
-* LLM-powered executive reporting
-* Source-of-truth driven dashboard design
+* LLM powered executive reporting
+* Source of truth driven dashboard design
 
 ---
 
 ## Screenshots
-The dashboard surfaces delivery health, release readiness, connected Jira and Slack signals, executive recommendations, and AI-generated sprint analysis.
+The dashboard surfaces delivery health, release readiness, connected Jira and Slack signals, executive recommendations, and AI generated sprint analysis.
 
 ### Delivery Intelligence Dashboard
 
@@ -44,9 +44,9 @@ When the user clicks Generate Summary, the button updates to Generating... while
 
 ![Dashboard Overview](screenshots/Dashboard-Analysis.png)
 
-FastAPI ingests the sprint update provided by the user, aggregates Jira delivery data and Slack delivery signals, and builds a unified delivery context. The platform combines deterministic business rules for operational metrics such as release readiness, blockers, risks, and sprint health with AI-powered analysis from Llama 3.2.
+FastAPI ingests the sprint update provided by the user, aggregates Jira delivery data and Slack delivery signals, and builds a unified delivery context. The platform combines business rules for operational metrics such as release readiness, blockers, risks, and sprint health with AI-powered analysis from Llama 3.2.
 
-The Sprint Health and Release Status metric cards are populated based on the backend rules engine. The Open Risks and Blocked metric cards are based on the deterministic Jira data. The AI confidence score is provided by Llama 3.2. The Analysis Snapshot provides a concise summary of the latest delivery assessment, including blockers identified, risks detected, release readiness, and key outcomes from the AI analysis. 
+The Sprint Health and Release Status metric cards are populated based on the backend rules engine. The Open Risks and Blocked metric cards are based on the Jira data. The AI confidence score is provided by Llama 3.2. The Analysis Snapshot provides a concise summary of the latest delivery assessment, including blockers identified, risks detected, release readiness, and key outcomes from the AI analysis. 
 
 ## Dashboard Executive Summary
 
@@ -72,7 +72,7 @@ AI-powered analysis from Llama 3.2 generates the executive summary, recommendati
 * Mock Jira ticket ingestion
 * Mock Slack delivery signal ingestion
 * Delivery context aggregation
-* Source-of-truth blocker detection
+* Source of truth blocker detection
 * Deterministic release readiness logic
 
 ### AI Analysis
@@ -137,7 +137,7 @@ AI is used for interpretation, summarization, and recommendations.
 * Recommended actions
 * AI confidence score
 
-This design improves trust by preventing the AI from overriding source-of-truth delivery data.
+This design improves trust by preventing the AI from overriding source of truth delivery data.
 
 ---
 
