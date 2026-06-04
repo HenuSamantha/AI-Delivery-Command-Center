@@ -25,7 +25,7 @@ The project demonstrates practical applications of:
 
 ## Demo Video
 
-Watch solution walk through demo
+Watch the solution walk through demo
 
 [AI Delivery Command Center Demo](https://youtu.be/KcNc55Tl8kg)
 
@@ -33,7 +33,6 @@ Watch solution walk through demo
 - Deterministic release readiness rules engine
 - Jira and Slack delivery signal aggregation
 - Automated action items and recommendations
-- Video walkthrough included
 
 ---
 
@@ -243,10 +242,5 @@ Current version includes:
 * AI-generated executive summaries and action items
 * Portfolio-ready dashboard screenshots
 
----
-
-## Demo
-
-Demo video coming soon.
 
 
